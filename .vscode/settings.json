@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "referencelibraries/flatlaf-3.2.1.jar"
+    ]
+}
