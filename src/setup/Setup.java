@@ -1,7 +1,8 @@
 package setup;
 
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class Setup extends javax.swing.JFrame {
@@ -9,21 +10,8 @@ public class Setup extends javax.swing.JFrame {
     private javax.swing.JTree tree;
     private java.awt.CardLayout cardLayout;
     private String businessName;
-
-    public static void main(String[] args) {
-        try {
-            javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Setup().setVisible(true);
-            }
-        });
-    }
+    private boolean flag;
+    String str;
 
     public Setup() {
         initComponents();
@@ -59,7 +47,7 @@ public class Setup extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
+        jPanel6 = new javax.swing.JPanel();
         food = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -68,7 +56,6 @@ public class Setup extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         service = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -77,7 +64,7 @@ public class Setup extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
+        flag = false;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -341,6 +328,15 @@ public class Setup extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE));
+        jPanel6Layout.setVerticalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 161, Short.MAX_VALUE));
+
         javax.swing.GroupLayout retailLayout = new javax.swing.GroupLayout(retail);
         retail.setLayout(retailLayout);
         retailLayout.setHorizontalGroup(
@@ -350,7 +346,8 @@ public class Setup extends javax.swing.JFrame {
                 .addGroup(retailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator2))
+                                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         retailLayout.setVerticalGroup(
@@ -359,8 +356,9 @@ public class Setup extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(157, Short.MAX_VALUE))
+                                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         typesPanel.add(retail, "card1");
@@ -429,11 +427,9 @@ public class Setup extends javax.swing.JFrame {
         foodLayout.setHorizontalGroup(
             foodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(foodLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(foodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         foodLayout.setVerticalGroup(
@@ -441,9 +437,7 @@ public class Setup extends javax.swing.JFrame {
             .addGroup(foodLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(157, Short.MAX_VALUE))
+                                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         typesPanel.add(food, "card2");
@@ -512,10 +506,9 @@ public class Setup extends javax.swing.JFrame {
         serviceLayout.setHorizontalGroup(
             serviceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(serviceLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(serviceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap()
+                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         serviceLayout.setVerticalGroup(
@@ -523,9 +516,7 @@ public class Setup extends javax.swing.JFrame {
             .addGroup(serviceLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(157, Short.MAX_VALUE))
+                                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         typesPanel.add(service, "card3");
@@ -554,7 +545,7 @@ public class Setup extends javax.swing.JFrame {
                 .addComponent(clientCodePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(typesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0,
+                                        .addComponent(typesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0,
                                                 Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -583,7 +574,6 @@ public class Setup extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         int cardNums = 0;
         javax.swing.JPanel panel = new javax.swing.JPanel();
-        String str;
 
         if (!businessName.equals("") && selectedNode != null) {
             Object selectedValue = selectedNode.getUserObject();
@@ -616,6 +606,7 @@ public class Setup extends javax.swing.JFrame {
                     }
                     
                     cardLayout.show(typesPanel, "card" + cardNums);
+                    flag = true;
                 }
             }
         } else {
@@ -623,9 +614,28 @@ public class Setup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTree1ValueChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (flag) {
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirmation",
+                    javax.swing.JOptionPane.YES_NO_OPTION);
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                try {
+                    FileWriter writer = new FileWriter("userdata/info.txt");
+                    writer.write("code:" + clientCodeField.getText() + "\n");
+                    writer.write("name:" + businessName + "\n");
+                    writer.write("type:" + str + "\n");
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+                setVisible(false);
+                new login.login().setVisible(true);
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Complete the form first");
+        }
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         setVisible(false);
@@ -670,11 +680,9 @@ public class Setup extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;
     private javax.swing.JPanel retail;

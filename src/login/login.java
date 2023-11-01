@@ -1,7 +1,15 @@
 package login;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.JFrame;
+import javax.swing.UnsupportedLookAndFeelException;
 import main.main;
+import setup.Setup;
 
 public class login extends JFrame {
 
@@ -10,8 +18,33 @@ public class login extends JFrame {
     private String password;
 
     public login() {
-        userCreds = new UserCredentials();
-        initComponents();
+        try (BufferedReader br = new BufferedReader(new FileReader("userdata/info.txt"))) {
+            String line = br.readLine();
+            if (line == null) {
+                setVisible(false);
+                new Setup().setVisible(true);
+            } else {
+                userCreds = new UserCredentials();
+                initComponents();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new login().setVisible(true);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")

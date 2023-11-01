@@ -1,0 +1,3 @@
+code:CTC-105
+name:Apple
+type:Restaurant
