@@ -188,27 +188,7 @@ public class Setup extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Fitness center");
         treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Technology");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Software development");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Web Development");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Hardware retail");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Automotive");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Auto repair");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Car dealership");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tire store");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Auto parts");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Car wash");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Gas station");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Pet Shop");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -739,16 +719,6 @@ public class Setup extends javax.swing.JFrame {
                             panel = service;
                             cardNums = 3;
                             jLabel8.setText(str);
-                            break;
-                        case "Technology":
-                            panel = tech;
-                            cardNums = 5;
-                            jLabel12.setText(str);
-                            break;
-                        case "Automotive":
-                            panel = auto;
-                            cardNums = 8;
-                            jLabel18.setText(str);
                             break;
                         default:
                             break;

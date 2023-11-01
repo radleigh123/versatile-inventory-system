@@ -239,7 +239,7 @@
                 <Component class="javax.swing.JTree" name="jTree1">
                   <Properties>
                     <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
-                      <TreeModel code="Choose your type of business:&#xa; Retail&#xa;  Clothing&#xa;  Electronics&#xa;  Grocery&#xa;  Bookstore&#xa;  Furniture&#xa;  Convenience store&#xa; Food Service&#xa;  Restaurant&#xa;  Cafes&#xa;  Fast food&#xa;  Catering Service&#xa;  Pizzeria&#xa; Service-Based&#xa;  Salon&#xa;  Cleaning service&#xa;  Fitness center&#xa; Technology &#xa;  Software development&#xa;  Web Development&#xa;  Hardware retail&#xa; Automotive&#xa;  Auto repair&#xa;  Car dealership&#xa;  Tire store&#xa;  Auto parts&#xa;  Car wash&#xa;  Gas station"/>
+                      <TreeModel code="Choose your type of business:&#xa; Retail&#xa;  Clothing&#xa;  Electronics&#xa;  Grocery&#xa;  Bookstore&#xa;  Furniture&#xa;  Convenience store&#xa; Food Service&#xa;  Restaurant&#xa;  Cafes&#xa;  Fast food&#xa;  Catering Service&#xa;  Pizzeria&#xa; Service-Based&#xa;  Salon&#xa;  Cleaning service&#xa;  Fitness center&#xa;  Pet Shop"/>
                     </Property>
                   </Properties>
                   <Events>
