@@ -1,6 +1,15 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "referencelibraries/flatlaf-3.2.1.jar"
+        "referencelibraries/flatlaf-3.2.1.jar",
+        "referencelibraries/mongoJar/mongodb-driver-sync-4.11.0.jar",
+        "referencelibraries/mongoJar/mongodb-driver-core-4.11.0.jar",
+        "referencelibraries/mongoJar/bson-record-codec-4.11.0.jar",
+        "referencelibraries/mongoJar/bson-4.11.0.jar",
+        "referencelibraries/log4j-api-3.0.0-alpha1.jar",
+        "referencelibraries/slf4j-api-2.0.9.jar",
+        "referencelibraries/slf4j-ext-2.0.9.jar",
+        "referencelibraries/log4j-slf4j-impl-3.0.0-alpha1.jar",
+        "referencelibraries/slf4j-simple-2.0.9.jar"
     ]
 }
