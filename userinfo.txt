@@ -1,0 +1,4 @@
+username:100-CTC
+password:123
+name:Hector
+type:Furniture

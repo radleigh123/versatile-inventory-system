@@ -5,13 +5,18 @@ import java.io.IOException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import userlogin.login.userdata.StartSQL;
+import userlogin.login.login;
+
 public class Setup extends javax.swing.JFrame {
 
     private javax.swing.JTree tree;
     private java.awt.CardLayout cardLayout;
     private String businessName;
+    private String clientCodeStr;
+    private String password;
     private boolean flag;
-    String str;
+    String businessType;
 
     public Setup() {
         initComponents();
@@ -28,6 +33,8 @@ public class Setup extends javax.swing.JFrame {
         clientCode = new javax.swing.JLabel();
         clientCodeField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel19 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -40,6 +47,7 @@ public class Setup extends javax.swing.JFrame {
         typesPanel = new javax.swing.JPanel();
         jPanel0 = new javax.swing.JPanel();
         retail = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,7 +55,6 @@ public class Setup extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         food = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -64,7 +71,6 @@ public class Setup extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        flag = false;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -90,8 +96,11 @@ public class Setup extends javax.swing.JFrame {
 
         clientCodeField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         clientCodeField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        clientCodeField.setText("CTC-105");
-        clientCodeField.setEnabled(false);
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel19.setText("Password:");
+
+        passwordField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout clientCodePanelLayout = new javax.swing.GroupLayout(clientCodePanel);
         clientCodePanel.setLayout(clientCodePanelLayout);
@@ -105,7 +114,12 @@ public class Setup extends javax.swing.JFrame {
                         .addComponent(clientCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clientCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel19)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         clientCodePanelLayout.setVerticalGroup(
@@ -114,7 +128,13 @@ public class Setup extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(clientCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clientCode)
-                    .addComponent(clientCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(clientCodeField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel19)
+                                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
@@ -122,12 +142,6 @@ public class Setup extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Business Name:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Business Type:");
@@ -271,6 +285,15 @@ public class Setup extends javax.swing.JFrame {
 
         retail.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 404, Short.MAX_VALUE));
+        jPanel6Layout.setVerticalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 161, Short.MAX_VALUE));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Business type chosen:");
 
@@ -328,15 +351,6 @@ public class Setup extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
-        jPanel6Layout.setVerticalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 161, Short.MAX_VALUE));
-
         javax.swing.GroupLayout retailLayout = new javax.swing.GroupLayout(retail);
         retail.setLayout(retailLayout);
         retailLayout.setHorizontalGroup(
@@ -344,9 +358,9 @@ public class Setup extends javax.swing.JFrame {
             .addGroup(retailLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(retailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -545,7 +559,7 @@ public class Setup extends javax.swing.JFrame {
                 .addComponent(clientCodePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(typesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0,
+                                        .addComponent(typesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0,
                                                 Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -578,27 +592,27 @@ public class Setup extends javax.swing.JFrame {
         if (!businessName.equals("") && selectedNode != null) {
             Object selectedValue = selectedNode.getUserObject();
             if (selectedValue != null) {
-                str = selectedValue.toString();
-                System.out.println(str);
+                businessType = selectedValue.toString();
+                System.out.println(businessType);
 
                 if (selectedNode.getDepth() == 0) {
                     switch (selectedNode.getParent().toString()) {
                         case "Retail":
                             panel = retail;
                             cardNums = 1;
-                            jLabel4.setText(str);
+                            jLabel4.setText(businessType);
                             jLabel12.setText(businessName);
                             break;
                         case "Food Service":
                             panel = food;
                             cardNums = 2;
-                            jLabel6.setText(str);
+                            jLabel6.setText(businessType);
                             jLabel16.setText(businessName);
                             break;
                         case "Service-Based":
                             panel = service;
                             cardNums = 3;
-                            jLabel8.setText(str);
+                            jLabel8.setText(businessType);
                             jLabel18.setText(businessName);
                             break;
                         default:
@@ -615,36 +629,65 @@ public class Setup extends javax.swing.JFrame {
     }//GEN-LAST:event_jTree1ValueChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if (flag) {
+        boolean flagForClientCode = true;
+
+        String code = getClientCodeStr();
+        String pass = getPassword();
+
+        if (code.equals("")) {
+            flagForClientCode = false;
+            javax.swing.JOptionPane.showMessageDialog(null, "Please enter a client code");
+        } else if (StartSQL.isClientCodeDuplicate(code)) {
+            flagForClientCode = false;
+            javax.swing.JOptionPane.showMessageDialog(null, "Client code already exists or\n" +
+                    "You have not been given a special code");
+        }
+
+        if (pass.equals("")) {
+            flagForClientCode = false;
+            javax.swing.JOptionPane.showMessageDialog(null, "Please enter a password");
+        }
+
+        if (flag && flagForClientCode) {
             int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirmation",
                     javax.swing.JOptionPane.YES_NO_OPTION);
             if (confirm == javax.swing.JOptionPane.YES_OPTION) {
                 try {
-                    FileWriter writer = new FileWriter("userdata/info.txt");
-                    writer.write("code:" + clientCodeField.getText() + "\n");
+                    FileWriter writer = new FileWriter("userinfo.txt");
+                    writer.write("username:" + code + "\n");
+                    writer.write("password:" + pass + "\n");
                     writer.write("name:" + businessName + "\n");
-                    writer.write("type:" + str + "\n");
+                    writer.write("type:" + businessType + "\n");
+
+                    StartSQL.addCredentialsToLogin(code, pass);
+
+                    StartSQL.loadClientDb(code, pass, businessName, businessType);
+
                     writer.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 setVisible(false);
-                new login.login().setVisible(true);
+                new login().setVisible(true);
             }
-        } else {
+        } else if (!flag) {
             javax.swing.JOptionPane.showMessageDialog(null, "Complete the form first");
         }
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         setVisible(false);
-        new login.login().setVisible(true);
+        new login().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private String getClientCodeStr() {
+        return clientCodeStr = clientCodeField.getText() != null ? clientCodeField.getText() : "";
+    }
+
+    private String getPassword() {
+        return password = passwordField.getText() != null ? passwordField.getText() : "";
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel clientCode;
@@ -663,6 +706,7 @@ public class Setup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -685,6 +729,7 @@ public class Setup extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;
+    private javax.swing.JTextField passwordField;
     private javax.swing.JPanel retail;
     private javax.swing.JPanel service;
     private javax.swing.JPanel setupPanel;

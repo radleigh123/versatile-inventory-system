@@ -1,24 +1,70 @@
-package login;
+package userlogin.login;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+import userlogin.login.userdata.StartSQL;
+
 import java.util.HashMap;
 
 public class UserCredentials {
 
-    private Map<String, String> creds;
-    private String fileName;
+    private static Map<String, String> creds;
+    private final static String fileName = "creds.txt";
+
+    private static String username;
+    private String password;
 
     public UserCredentials() {
-        creds = new HashMap<>();
-        fileName = "creds.txt";
+        // Stops dbs from loading multiple times
+        if (creds == null || creds.isEmpty()) {
+            creds = new HashMap<>();
+            loadDb();
+        }
 
-        loadCreds(fileName);
+        // check if an additional account is added
+        if (creds.size() < StartSQL.getNumberAccounts()) {
+            creds = new HashMap<>();
+            loadDb();
+        }
     }
 
+    private void loadDb() {
+        StartSQL.setDb();
+
+        MongoDatabase database = StartSQL.getDb();
+        MongoCollection<Document> logins = database.getCollection("clients");
+        MongoCursor<Document> cursor = logins.find().iterator();
+
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+
+                username = doc.getString("username");
+                password = doc.getString("password");
+
+                addCreds(username, password);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+
+        saveCreds(fileName);
+        System.out.println(creds);
+    }
+
+    // Store into Map - OPTIONAL OR NOT NEEDED?
     private void loadCreds(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;

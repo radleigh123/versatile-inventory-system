@@ -1,16 +1,24 @@
 package app;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.mongodb.client.MongoClient;
+
+import userlogin.login.userdata.StartSQL;
+import userlogin.login.login;
+
 import javax.swing.UnsupportedLookAndFeelException;
-import login.login;
 
 public class App {
 
     public static void main(String[] args) {
-        System.out.println("PROGRAM STARTING...");
+        System.out.println("APP START..");
+
+        MongoClient client = StartSQL.conClient();
+        StartSQL.loadClientDatabases();
 
         try {
             javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
+            System.out.println("Successfully loaded FlatMacLightLaf theme.");
         } catch (UnsupportedLookAndFeelException ex) {
             System.out.println(ex.getMessage());
         }
@@ -22,6 +30,12 @@ public class App {
             }
         });
 
-        System.out.println("PROGRAM TERMINATED...");
+        // Close when program exits
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            client.close();
+            System.out.println("MongoClient closed.");
+        }));
+
+        System.out.println("APP END..");
     }
 }
