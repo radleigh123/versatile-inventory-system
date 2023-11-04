@@ -1,4 +1,4 @@
-package userlogin.login;
+package userlogin;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,7 +12,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-import userlogin.login.userdata.StartSQL;
+import app.StartSQL;
 
 import java.util.HashMap;
 

@@ -3,7 +3,6 @@ package app;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import com.mongodb.client.MongoClient;
 
-import userlogin.login.userdata.StartSQL;
 import userlogin.login.login;
 
 import javax.swing.UnsupportedLookAndFeelException;

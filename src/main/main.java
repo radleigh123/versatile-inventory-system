@@ -1,5 +1,11 @@
 package main;
 
+import main.category.Category;
+import main.customer.Customer;
+import main.order.Order;
+import main.products.Products;
+import main.user.User;
+
 public class main extends javax.swing.JFrame {
 
     private java.awt.CardLayout cardLayout;

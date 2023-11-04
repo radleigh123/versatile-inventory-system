@@ -1,8 +1,8 @@
-package main;
+package main.customer;
 
-public class User extends javax.swing.JPanel {
+public class Customer extends javax.swing.JPanel {
 
-    public User() {
+    public Customer() {
         initComponents();
     }
 
@@ -10,7 +10,7 @@ public class User extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(0, 204, 255));
+        setBackground(new java.awt.Color(0, 255, 204));
         setPreferredSize(new java.awt.Dimension(1090, 559));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

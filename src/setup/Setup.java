@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import userlogin.login.userdata.StartSQL;
+import app.StartSQL;
 import userlogin.login.login;
 
 public class Setup extends javax.swing.JFrame {
