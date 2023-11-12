@@ -2,7 +2,7 @@ package userlogin.login;
 
 import javax.swing.JFrame;
 
-import main.main;
+import main.retail.RetailFrame;
 import setup.Setup;
 import userlogin.UserCredentials;
 
@@ -232,7 +232,7 @@ public class login extends JFrame {
 
         if (userCreds.verify(username, password)) {
             setVisible(false);
-            new main().setVisible(true);
+            new RetailFrame().setVisible(true);
         }
 
         jLabel3.setText("Incorrect credentials! Try Again");
