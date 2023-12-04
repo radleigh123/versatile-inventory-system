@@ -133,6 +133,8 @@
                           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel7" max="32767" attributes="0"/>
+                                  <Component id="jLabel6" max="32767" attributes="0"/>
                                   <Component id="jLabel4" max="32767" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" pref="113" max="32767" attributes="0"/>
@@ -144,6 +146,8 @@
                                   <Component id="qtyField" pref="300" max="32767" attributes="0"/>
                                   <Component id="categField" max="32767" attributes="0"/>
                                   <Component id="idField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="suppField" max="32767" attributes="0"/>
+                                  <Component id="priceField" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -155,25 +159,35 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="idField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="categField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="qtyField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="suppField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="priceField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -332,6 +346,38 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabel6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+                <Property name="text" type="java.lang.String" value="Supplier:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="suppField">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+                <Property name="text" type="java.lang.String" value="Unit Price:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="priceField">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -374,27 +420,27 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="2">
-                    <Column editable="true" title="ID" type="java.lang.Integer">
-                      <Data value="101001"/>
-                      <Data value="101002"/>
-                    </Column>
-                    <Column editable="true" title="Product Name" type="java.lang.String">
-                      <Data value="Coke"/>
-                      <Data value="Bread"/>
-                    </Column>
-                    <Column editable="true" title="Category" type="java.lang.String">
-                      <Data value="Drink"/>
-                      <Data value="Food"/>
-                    </Column>
-                    <Column editable="true" title="Qty" type="java.lang.Integer">
-                      <Data value="10"/>
-                      <Data value="20"/>
-                    </Column>
+                  <Table columnCount="6" rowCount="0">
+                    <Column editable="true" title="ID" type="java.lang.Integer"/>
+                    <Column editable="true" title="Product Name" type="java.lang.String"/>
+                    <Column editable="true" title="Category" type="java.lang.String"/>
+                    <Column editable="true" title="Qty" type="java.lang.Integer"/>
+                    <Column editable="true" title="Supplier" type="java.lang.Integer"/>
+                    <Column editable="true" title="Unit Price" type="java.lang.Double"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="setCellsAlignment(jTable1, javax.swing.SwingConstants.LEADING);&#xa;&#xa;javax.swing.ListSelectionModel selectionModel = jTable1.getSelectionModel();&#xa;selectionModel.addListSelectionListener(new javax.swing.event.ListSelectionListener() {&#xa;    @Override&#xa;    public void valueChanged(javax.swing.event.ListSelectionEvent e) {&#xa;        if (!e.getValueIsAdjusting()) {&#xa;            int selectedRow = jTable1.getSelectedRow();&#xa;            if (selectedRow != -1) {&#xa;                int id = (int) jTable1.getValueAt(selectedRow, 0);&#xa;                String name = (String) jTable1.getValueAt(selectedRow, 1);&#xa;                String categ = (String) jTable1.getValueAt(selectedRow, 2);&#xa;                int qty = (int) jTable1.getValueAt(selectedRow, 3);&#xa;                &#xa;                System.out.println(&quot;Selected: &quot; + id + &quot;, &quot; + name+ &quot;, &quot; + categ + &quot;, &quot; + qty);&#xa;            }&#xa;        }&#xa;    }&#xa;});">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="setCellsAlignment(jTable1, javax.swing.SwingConstants.LEADING);&#xa;&#xa;javax.swing.ListSelectionModel selectionModel = jTable1.getSelectionModel();&#xa;selectionModel.addListSelectionListener(new javax.swing.event.ListSelectionListener() {&#xa;    @Override&#xa;    public void valueChanged(javax.swing.event.ListSelectionEvent e) {&#xa;        if (!e.getValueIsAdjusting()) {&#xa;            int selectedRow = jTable1.getSelectedRow();&#xa;            if (selectedRow != -1) {&#xa;                int id = (int) jTable1.getValueAt(selectedRow, 0);&#xa;                String name = (String) jTable1.getValueAt(selectedRow, 1);&#xa;                String categ = (String) jTable1.getValueAt(selectedRow, 2);&#xa;                int qty = (int) jTable1.getValueAt(selectedRow, 3);&#xa;                int supplier = (int) jTable1.getValueAt(selectedRow, 4);&#xa;                double price = (double) jTable1.getValueAt(selectedRow, 5);&#xa;                &#xa;                System.out.println(&quot;Selected: &quot; + id + &quot;, &quot; &#xa;                                                + name+ &quot;, &quot; &#xa;                                                + categ + &quot;, &quot; &#xa;                                                + qty + &quot;, &quot; &#xa;                                                + supplier + &quot;, &quot; + price);&#xa;            }&#xa;        }&#xa;    }&#xa;});">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -423,7 +469,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xa;    @Override&#xa;    public boolean isCellEditable(int row, int column) {                &#xa;                return false;               &#xa;    };&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xa;    @Override&#xa;    public boolean isCellEditable(int row, int column) {&#xa;        return false;&#xa;    };&#xa;}"/>
               </AuxValues>
             </Component>
           </SubComponents>

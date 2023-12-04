@@ -1,4 +1,5 @@
 username:100-CTC
 password:123
-name:Hector
-type:Furniture
+name:LOTR
+category:Retail
+type:Grocery

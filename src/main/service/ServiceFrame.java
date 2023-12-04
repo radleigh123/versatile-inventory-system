@@ -2,7 +2,7 @@ package main.service;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UnsupportedLookAndFeelException;
-import main.retail.category.Category;
+import main.retail.supplier.Supplier;
 import main.retail.customer.Customer;
 import main.retail.order.Order;
 import main.retail.products.Products;
@@ -49,7 +49,7 @@ public class ServiceFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         mainPanels = new javax.swing.JPanel();
         mainCard1 = new Products();
-        mainCard2 = new Category();
+        mainCard2 = new Supplier();
         mainCard3 = new Customer();
         mainCard4 = new Order();
 

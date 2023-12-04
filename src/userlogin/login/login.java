@@ -2,8 +2,12 @@ package userlogin.login;
 
 import javax.swing.JFrame;
 
+import app.StartSQL;
+import main.food.FoodFrame;
 import main.retail.RetailFrame;
+import main.service.ServiceFrame;
 import setup.Setup;
+import userdata.Businesses;
 import userlogin.UserCredentials;
 
 public class login extends JFrame {
@@ -225,6 +229,8 @@ public class login extends JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String usernameCategory;
+
         username = jTextField1.getText() != null ? jTextField1.getText() : "";
         password = jPasswordField1.getText() != null ? jPasswordField1.getText() : "";
         System.out.println("username: " + username);
@@ -232,7 +238,26 @@ public class login extends JFrame {
 
         if (userCreds.verify(username, password)) {
             setVisible(false);
-            new RetailFrame().setVisible(true);
+
+            StartSQL.clientCode = username;
+
+            switch (Businesses.businesses.get(username).getCategory()) {
+                case "Retail":
+                    StartSQL.loadRetailClientDatabase(username);
+                    new RetailFrame().setVisible(true);
+                    break;
+                case "Food Service":
+                    // TODO: GOTO StartSQL class to get method of loading database
+                    new FoodFrame().setVisible(true);
+                    break;
+                case "Service-Based":
+                    // TODO: GOTO StartSQL class to get method of loading database
+                    new ServiceFrame().setVisible(true);
+                    break;
+                default:
+                    System.out.println("ERROR: username's category does not exist");
+                    break;
+            }
         }
 
         jLabel3.setText("Incorrect credentials! Try Again");

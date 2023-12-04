@@ -1,7 +1,5 @@
 package userlogin;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -18,14 +16,14 @@ import java.util.HashMap;
 
 public class UserCredentials {
 
-    private static Map<String, String> creds;
     private final static String fileName = "creds.txt";
-
+    private static Map<String, String> creds;
     private static String username;
+
     private String password;
 
     public UserCredentials() {
-        // Stops dbs from loading multiple times
+        // Stops `loadDB()` method from being called multiple times
         if (creds == null || creds.isEmpty()) {
             creds = new HashMap<>();
             loadDb();
@@ -38,12 +36,14 @@ public class UserCredentials {
         }
     }
 
+    /**
+     * Gets the credentials from the database, and stores them into a Map
+     */
     private void loadDb() {
-        StartSQL.setDb();
-
-        MongoDatabase database = StartSQL.getDb();
+        MongoDatabase database = StartSQL.getLoginDB();
         MongoCollection<Document> logins = database.getCollection("clients");
         MongoCursor<Document> cursor = logins.find().iterator();
+        StartSQL.updateNumberAccounts();
 
         try {
             while (cursor.hasNext()) {
@@ -64,7 +64,8 @@ public class UserCredentials {
         System.out.println(creds);
     }
 
-    // Store into Map - OPTIONAL OR NOT NEEDED?
+    // TODO: Depreciated, to be removed in the future
+    /* Store into Map - OPTIONAL OR NOT NEEDED?
     private void loadCreds(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -79,8 +80,12 @@ public class UserCredentials {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 
+    /**
+     * Iterates through the Map and saves the credentials to a file
+     * @param filename {@code String}
+     */
     public void saveCreds(String filename) {
         try (PrintWriter writer = new PrintWriter(filename)) {
             for (Map.Entry<String, String> entry : creds.entrySet()) {

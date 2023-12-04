@@ -13,6 +13,7 @@ public class App {
         System.out.println("APP START..");
 
         MongoClient client = StartSQL.conClient();
+        StartSQL.setLoginDB();
         StartSQL.loadClientDatabases();
 
         try {

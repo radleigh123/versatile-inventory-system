@@ -6,6 +6,11 @@ import java.io.IOException;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import app.StartSQL;
+import userdata.Businesses;
+import userdata.food.FoodData;
+import userdata.retail.RetailData;
+import userdata.service.ServiceData;
+
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UnsupportedLookAndFeelException;
 import userlogin.login.login;
@@ -35,7 +40,8 @@ public class Setup extends javax.swing.JFrame {
     private String clientCodeStr;
     private String password;
     private boolean flag;
-    String businessType;
+    private String businessType;
+    private String businessCategory;
 
     public Setup() {
         initComponents();
@@ -585,7 +591,8 @@ public class Setup extends javax.swing.JFrame {
             Object selectedValue = selectedNode.getUserObject();
             if (selectedValue != null) {
                 businessType = selectedValue.toString();
-                System.out.println(businessType);
+                businessCategory = selectedNode.getParent().toString();
+                System.out.println(businessCategory + ":" + businessType);
 
                 if (selectedNode.getDepth() == 0) {
                     switch (selectedNode.getParent().toString()) {
@@ -650,11 +657,45 @@ public class Setup extends javax.swing.JFrame {
                     writer.write("username:" + code + "\n");
                     writer.write("password:" + pass + "\n");
                     writer.write("name:" + businessName + "\n");
+                    writer.write("category:" + businessCategory + "\n");
                     writer.write("type:" + businessType + "\n");
 
                     StartSQL.addCredentialsToLogin(code, pass);
 
-                    StartSQL.loadClientDb(code, pass, businessName, businessType);
+                    StartSQL.addClientDb(code, pass, businessName, businessCategory, businessType);
+
+                    switch (businessCategory) {
+                        case "Retail":
+                            Businesses.businesses.put(code,
+                                    new RetailData(
+                                            code,
+                                            businessName,
+                                            businessCategory,
+                                            businessType));
+                            StartSQL.createRetailCollection(code);
+                            break;
+                        case "Food Service":
+                            Businesses.businesses.put(code,
+                                    new FoodData(
+                                            code,
+                                            businessName,
+                                            businessCategory,
+                                            businessType));
+                            // TODO: Create collection for food service
+                            break;
+                        case "Service-Based":
+                            Businesses.businesses.put(code,
+                                    new ServiceData(
+                                            code,
+                                            businessName,
+                                            businessCategory,
+                                            businessType));
+                            // TODO: Create collection for service-based
+                            break;
+                        default:
+                            System.out.println("ERROR: username's category does not exist");
+                            break;
+                    }
 
                     writer.close();
                 } catch (IOException e) {
