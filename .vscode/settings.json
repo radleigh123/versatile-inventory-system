@@ -11,5 +11,6 @@
         "referencelibraries/slf4j-ext-2.0.9.jar",
         "referencelibraries/log4j-slf4j-impl-3.0.0-alpha1.jar",
         "referencelibraries/slf4j-simple-2.0.9.jar"
-    ]
+    ],
+    "editor.formatOnSave": false
 }

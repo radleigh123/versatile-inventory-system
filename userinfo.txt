@@ -1,5 +1,1 @@
-username:100-CTC
-password:123
-name:LOTR
-category:Retail
-type:Grocery
+CTC,123,Shabu,Retail,Grocery
