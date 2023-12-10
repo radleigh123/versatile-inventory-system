@@ -13,6 +13,7 @@ public class AvailableBusinesses {
 
     // clientCode, BusinessInformation
     public static Map<String, BusinessInformation> businesses = new HashMap<>();
+    public static String title = "";
 
     public static void checkDataFiles() {
         String code = "";

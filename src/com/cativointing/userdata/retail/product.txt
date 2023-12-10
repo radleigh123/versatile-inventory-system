@@ -1,2 +1,0 @@
-101,Pandesal,Food,25,200,5.61
-102,Cake,Dessert,1,200,50.0

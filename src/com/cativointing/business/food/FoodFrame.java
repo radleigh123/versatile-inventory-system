@@ -1,30 +1,28 @@
 package com.cativointing.business.food;
 
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import javax.swing.UnsupportedLookAndFeelException;
+import com.cativointing.userdata.AvailableBusinesses;
+import com.cativointing.userdata.food.FoodData;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class FoodFrame extends javax.swing.JFrame {
-
-    // Temporary method to test functionality
-    public static void main(String[] args) {
-        try {
-            javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
-            System.out.println("Successfully loaded FlatMacLightLaf theme.");
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FoodFrame().setVisible(true);
-            }
-        });
-    }
-
+    
+    private Raw raw;
+    private Supplier supplier;
+    private WIP wip;
+    private Finish finish;
+    
     public FoodFrame() {
+        raw = new Raw();
+        supplier = new Supplier();
+        wip = new WIP();
+        finish = new Finish();
+        
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+
+        jLabel1.setText(AvailableBusinesses.title);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,6 +92,40 @@ public class FoodFrame extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE))
         );
 
+        jTabbedPane1.addTab("Raw Material", raw);
+        jTabbedPane1.addTab("Supplier", supplier);
+        jTabbedPane1.addTab("Work-In-Progress", wip);
+        jTabbedPane1.addTab("Finished Goods", finish);
+
+        jTabbedPane1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int selectedIndex = jTabbedPane1.getSelectedIndex();
+                String str = "";
+
+                switch (selectedIndex) {
+                    case 0 -> {
+                        str += "Raw Material";
+                        raw.refresh();
+                    }
+                    case 1 -> {
+                        str += "Supplier";
+                        supplier.refresh();
+                    }
+                    case 2 -> {
+                        str += "Work-In-Progress";
+                        wip.refresh();
+                    }
+                    case 3 -> {
+                        str += "Finished Goods";
+                        finish.refresh();
+                    }
+                }
+
+                System.out.println(str + " tab selected.");
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +146,7 @@ public class FoodFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
-        // FoodData.saveData();
+        FoodData.saveData();
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 

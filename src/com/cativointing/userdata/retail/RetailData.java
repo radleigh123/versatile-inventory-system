@@ -68,7 +68,8 @@ public class RetailData extends BusinessInformation {
     }
 
     public static void saveData() {
-        String file = "src/com/cativointing/userdata/retail/product.txt";
+        // String file = "src/com/cativointing/userdata/retail/product.txt";
+        String file = "retailproduct.txt";
         try (PrintWriter writer = new PrintWriter(file)) {
             for (Map.Entry<Integer, product> entry : PRODUCTS.entrySet()) {
                 writer.println(entry.getValue().getID() + "," 
@@ -82,7 +83,7 @@ public class RetailData extends BusinessInformation {
             e.printStackTrace();
         }
         
-        file = "src/com/cativointing/userdata/retail/supplier.txt";
+        file = "retailsupplier.txt";
         try (PrintWriter writer = new PrintWriter(file)) {
             for (Map.Entry<Integer, supplier> entry : SUPPLIERS.entrySet()) {
                 writer.println(entry.getValue().getID() + "," 
@@ -94,7 +95,7 @@ public class RetailData extends BusinessInformation {
             e.printStackTrace();
         }
         
-        file = "src/com/cativointing/userdata/retail/customer.txt";
+        file = "retailcustomer.txt";
         try (PrintWriter writer = new PrintWriter(file)) {
             for (Map.Entry<Integer, CustomerData> entry : CUSTOMERS.entrySet()) {
                 writer.println(entry.getValue().getID() + "," 
@@ -110,7 +111,7 @@ public class RetailData extends BusinessInformation {
     }
 
     public void loadData() {
-        String file = "src/com/cativointing/userdata/retail/product.txt";
+        String file = "retailproduct.txt";
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -129,7 +130,7 @@ public class RetailData extends BusinessInformation {
             e.printStackTrace();
         }
 
-        file = "src/com/cativointing/userdata/retail/supplier.txt";
+        file = "retailsupplier.txt";
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -146,7 +147,7 @@ public class RetailData extends BusinessInformation {
             e.printStackTrace();
         }
 
-        file = "src/com/cativointing/userdata/retail/customer.txt";
+        file = "retailcustomer.txt";
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {

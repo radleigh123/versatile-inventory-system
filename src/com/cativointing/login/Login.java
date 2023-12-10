@@ -268,6 +268,7 @@ public class Login extends JFrame {
             } else {
                 System.out.println("The file is not empty");
                 confirm = javax.swing.JOptionPane.showConfirmDialog(null, "This will start over everything, are you sure?", "Confirmation", javax.swing.JOptionPane.YES_NO_OPTION);
+                removeTextFiles();
             }
         } catch (Exception e) {
             // e.printStackTrace();
@@ -278,6 +279,27 @@ public class Login extends JFrame {
             new Setup().setVisible(true);
         }
     }//GEN-LAST:event_signButtonActionPerformed
+
+    private void removeTextFiles() {
+        File file = new File("retailcustomer.txt");
+        file.delete();
+        file = new File("retailsupplier.txt");
+        file.delete();
+        file = new File("retailproduct.txt");
+        file.delete();
+        file = new File("foodraw.txt");
+        file.delete();
+        file = new File("foodsupplier.txt");
+        file.delete();
+        file = new File("foodwip.txt");
+        file.delete();
+        file = new File("servicecustomer.txt");
+        file.delete();
+        file = new File("servicereport.txt");
+        file.delete();
+        file = new File("serviceschedule.txt");
+        file.delete();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton enterButton;

@@ -1,5 +1,6 @@
 package com.cativointing.business.retail;
 
+import com.cativointing.userdata.AvailableBusinesses;
 import com.cativointing.userdata.retail.RetailData;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,8 +19,9 @@ public class RetailFrame extends javax.swing.JFrame {
         customer = new Customer();
 
         initComponents();
-
         this.setExtendedState(MAXIMIZED_BOTH);
+
+        jLabel1.setText(AvailableBusinesses.title);
     }
 
     @SuppressWarnings("unchecked")

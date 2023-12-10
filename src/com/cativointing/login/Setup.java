@@ -659,6 +659,8 @@ public class Setup extends javax.swing.JFrame {
                 UserCredentials.addCREDS(code, pass);
                 UserCredentials.saveCREDS();
 
+                AvailableBusinesses.title = businessName;
+
                 setVisible(false);
                 new Login().setVisible(true);
             }
