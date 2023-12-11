@@ -66,7 +66,7 @@ public class Finish extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel7.setText("Amount to Send:");
+        jLabel7.setText("Quantity:");
 
         qtyField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 

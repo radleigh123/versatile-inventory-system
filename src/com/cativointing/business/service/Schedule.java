@@ -137,7 +137,7 @@ public class Schedule extends javax.swing.JPanel {
         });
 
         checkButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        checkButton.setText("Check");
+        checkButton.setText("Done");
         checkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkButtonActionPerformed(evt);

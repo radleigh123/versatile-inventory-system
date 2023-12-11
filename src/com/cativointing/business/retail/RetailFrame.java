@@ -2,10 +2,34 @@ package com.cativointing.business.retail;
 
 import com.cativointing.userdata.AvailableBusinesses;
 import com.cativointing.userdata.retail.RetailData;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class RetailFrame extends javax.swing.JFrame {
+    
+    public static void main(String[] args) {
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
+            System.out.println("Successfully loaded FlatMacLightLaf theme.");
+        } catch (UnsupportedLookAndFeelException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RetailFrame().setVisible(true);
+            }
+        });
+
+        // Close when program exits
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Successfully closed the program");
+        }));
+    }
 
     private Order order;
     private Product product;
