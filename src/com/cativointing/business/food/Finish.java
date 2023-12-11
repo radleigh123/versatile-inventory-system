@@ -6,8 +6,6 @@ import java.util.Map;
 import com.cativointing.userdata.food.FoodData;
 import com.cativointing.userdata.food.Status;
 import com.cativointing.userdata.food.wip;
-import com.cativointing.userdata.retail.RetailData;
-import com.cativointing.userdata.retail.product;
 
 public class Finish extends javax.swing.JPanel {
 
@@ -313,7 +311,15 @@ public class Finish extends javax.swing.JPanel {
             return;
         }
 
+        int tempQty = FoodData.getFinish(product);
+
+        if (tempQty < qty) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Not enough quantity!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         tempProducts.put(w.getID(), product);
+        FoodData.addFinish(product, tempQty - qty);
         model.addRow(new Object[]{w.getID(), w.getProduct(), qty});
 
     }//GEN-LAST:event_addButtonActionPerformed
@@ -329,12 +335,20 @@ public class Finish extends javax.swing.JPanel {
             System.out.println("Selected: " + id + ", " + name + ", " + qty);
             
             tempProducts.remove(id);
+            FoodData.addFinish(name, FoodData.getFinish(name) + qty);
             model.removeRow(selectedRow);
         }
 
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void removeAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAllButtonActionPerformed
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String name = (String) jTable1.getValueAt(i, 1);
+            int qty = (int) jTable1.getValueAt(i, 2);
+
+            FoodData.addFinish(name, FoodData.getFinish(name) + qty);
+        }
+
         tempProducts = new HashMap<>();
         model.setRowCount(0);
     }//GEN-LAST:event_removeAllButtonActionPerformed
@@ -358,6 +372,7 @@ public class Finish extends javax.swing.JPanel {
             int id = (int) jTable1.getValueAt(i, 0);
             
             FoodData.removeWip(id);
+            FoodData.removeFinish(tempProducts.get(id));
         }
 
         refresh();

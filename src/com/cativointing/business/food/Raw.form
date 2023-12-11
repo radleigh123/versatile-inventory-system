@@ -141,9 +141,13 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="nameField" pref="300" max="32767" attributes="0"/>
-                                  <Component id="qtyField" max="32767" attributes="0"/>
                                   <Component id="idField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="suppField" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="qtyField" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="qtyCombo" min="-2" pref="130" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -169,6 +173,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="qtyField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="qtyCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -332,6 +337,27 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JComboBox" name="qtyCombo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="7">
+                    <StringItem index="0" value="mg"/>
+                    <StringItem index="1" value="g"/>
+                    <StringItem index="2" value="kg"/>
+                    <StringItem index="3" value="pt"/>
+                    <StringItem index="4" value="qt"/>
+                    <StringItem index="5" value="gal"/>
+                    <StringItem index="6" value="Add Qty"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -377,11 +403,11 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="true" title="ID" type="java.lang.Integer"/>
                     <Column editable="true" title="Raw Products" type="java.lang.String"/>
-                    <Column editable="true" title="Quantity" type="java.lang.Integer"/>
+                    <Column editable="true" title="Quantity" type="java.lang.String"/>
                     <Column editable="true" title="Supplier" type="java.lang.Integer"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="setCellsAlignment(jTable1, javax.swing.SwingConstants.LEADING);&#xa;&#xa;javax.swing.ListSelectionModel selectionModel = jTable1.getSelectionModel();&#xa;selectionModel.addListSelectionListener(new javax.swing.event.ListSelectionListener() {&#xa;    @Override&#xa;    public void valueChanged(javax.swing.event.ListSelectionEvent e) {&#xa;        if (!e.getValueIsAdjusting()) {&#xa;            int selectedRow = jTable1.getSelectedRow();&#xa;            if (selectedRow != -1) {&#xa;                int id = (int) jTable1.getValueAt(selectedRow, 0);&#xa;                String product = (String) jTable1.getValueAt(selectedRow, 1);&#xa;                int quantity = (int) jTable1.getValueAt(selectedRow, 2);&#xa;                int supplier = (int) jTable1.getValueAt(selectedRow, 3);&#xa;                &#xa;                System.out.println(&quot;Selected: &quot; + id + &quot;, &quot; + product + &quot;, &quot; + quantity + &quot;, &quot; + supplier);&#xa;            }&#xa;        }&#xa;    }&#xa;});">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="setCellsAlignment(jTable1, javax.swing.SwingConstants.LEADING);&#xa;&#xa;javax.swing.ListSelectionModel selectionModel = jTable1.getSelectionModel();&#xa;selectionModel.addListSelectionListener(new javax.swing.event.ListSelectionListener() {&#xa;    @Override&#xa;    public void valueChanged(javax.swing.event.ListSelectionEvent e) {&#xa;        if (!e.getValueIsAdjusting()) {&#xa;            int selectedRow = jTable1.getSelectedRow();&#xa;            if (selectedRow != -1) {&#xa;                int id = (int) jTable1.getValueAt(selectedRow, 0);&#xa;                String product = (String) jTable1.getValueAt(selectedRow, 1);&#xa;                String quantity = (String) jTable1.getValueAt(selectedRow, 2);&#xa;                int supplier = (int) jTable1.getValueAt(selectedRow, 3);&#xa;                &#xa;                System.out.println(&quot;Selected: &quot; + id + &quot;, &quot; + product + &quot;, &quot; + quantity + &quot;, &quot; + supplier);&#xa;            }&#xa;        }&#xa;    }&#xa;});">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>

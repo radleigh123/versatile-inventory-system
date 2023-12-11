@@ -1,7 +1,12 @@
 package com.cativointing.business.food;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import com.cativointing.userdata.food.FoodData;
 import com.cativointing.userdata.food.Status;
+import com.cativointing.userdata.food.raw;
 import com.cativointing.userdata.food.wip;
 
 public class WIP extends javax.swing.JPanel {
@@ -10,14 +15,18 @@ public class WIP extends javax.swing.JPanel {
     private javax.swing.table.DefaultTableModel model;
     private javax.swing.DefaultComboBoxModel statModel;
 
-    public WIP() {
+    private String storedQty;
+
+    public WIP(FoodFrame frame) {
         initComponents();
+
+        storedQty = "";
 
         model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         for (wip w : FoodData.getWIPS().values()) {
             model.addRow(new Object[]{
-                w.getID(), 
-                w.getProduct(), 
+                w.getID(),
+                w.getProduct(),
                 w.getStatus()
             });
         }
@@ -314,10 +323,10 @@ public class WIP extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (wip w : FoodData.getWIPS().values()) {
-            if(!w.getStatus().equals(Status.DONE.toString())) {
+            if (!w.getStatus().equals(Status.DONE.toString())) {
                 model.addRow(new Object[]{
-                    w.getID(), 
-                    w.getProduct(), 
+                    w.getID(),
+                    w.getProduct(),
                     w.getStatus()
                 });
             }
@@ -358,9 +367,15 @@ public class WIP extends javax.swing.JPanel {
             }
         }
 
-        model.addRow(new Object[]{id, product, status});
-        FoodData.addWip(new wip(id, product, status));
-        
+        boolean bool = chooseIngredients();
+
+        if (bool == false) {
+            return;
+        }
+
+        model.addRow(new Object[]{id, product, status, storedQty});
+        FoodData.addWip(new wip(id, product, status, storedQty));
+
         if (status.equals(Status.DONE.toString())) {
             int row = -1;
 
@@ -371,8 +386,10 @@ public class WIP extends javax.swing.JPanel {
                 }
             }
 
-            model.removeRow(row);
+            FoodData.addFinish(product, Integer.parseInt(storedQty.split(" ")[0]));
+            System.out.println(product + ":" + storedQty);
             javax.swing.JOptionPane.showMessageDialog(null, "ADD: Product moved to Finished Goods");
+            model.removeRow(row);
         }
 
         idField.setText("");
@@ -442,8 +459,8 @@ public class WIP extends javax.swing.JPanel {
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(null,
-                    "Are you sure you want to update this product?",
-                    "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
+                "Are you sure you want to update this product?",
+                "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (confirm == javax.swing.JOptionPane.NO_OPTION) {
             jTable1.clearSelection();
@@ -459,8 +476,10 @@ public class WIP extends javax.swing.JPanel {
         FoodData.getWip(id).setStatus(status);
 
         if (status.equals(Status.DONE.toString())) {
-            model.removeRow(row);
+            FoodData.addFinish(product, Integer.parseInt(storedQty.split(" ")[0]));
+            System.out.println(product + ":" + storedQty);
             javax.swing.JOptionPane.showMessageDialog(null, "UPDATE: Product moved to Finished Goods");
+            model.removeRow(row);
         }
 
         jTable1.clearSelection();
@@ -496,8 +515,8 @@ public class WIP extends javax.swing.JPanel {
         }
 
         int confirm = javax.swing.JOptionPane.showConfirmDialog(null,
-                    "Are you sure you want to remove this product?",
-                    "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
+                "Are you sure you want to remove this product?",
+                "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (confirm == javax.swing.JOptionPane.NO_OPTION) {
             jTable1.clearSelection();
@@ -506,18 +525,99 @@ public class WIP extends javax.swing.JPanel {
             statComboBox.setSelectedIndex(0);
             return;
         }
+        
+        for (raw r : FoodData.tempRaw.values()) {
+            String[] parts = r.getQuantity().split(" ");
+            int tempQty = Integer.parseInt(parts[0]);
+            for (raw r2 : FoodData.getRAWS().values()) {
+                if (r.getID() == r2.getID()) {
+                    String[] parts2 = r2.getQuantity().split(" ");
+                    int rawQty = Integer.parseInt(parts2[0]);
 
+                    int finalQty = rawQty + tempQty;
+
+                    r2.setQuantity(Integer.toString(finalQty) + " " + parts[1]);
+                    break;
+                }
+            }
+        }
         model.removeRow(row);
         FoodData.removeWip(id);
+        
 
         jTable1.clearSelection();
-        jTable1.addRowSelectionInterval(row, row);
-        
+        // jTable1.addRowSelectionInterval(row, row);
+
         idField.setText("");
         prodField.setText("");
         statComboBox.setSelectedIndex(0);
 
     }//GEN-LAST:event_removeButtonActionPerformed
+
+    private Boolean chooseIngredients() {
+        Boolean flag = false;
+        String[] materials = new String[FoodData.getRAWS().size()];
+        int i = 0;
+        for (raw r : FoodData.getRAWS().values()) {
+            materials[i] = r.getName();
+            i++;
+        }
+
+        JComboBox<String> materialComboBox = new JComboBox<>(materials);
+
+        JTextField quantityField = new JTextField();
+        javax.swing.JLabel tempLabel = new javax.swing.JLabel();
+        tempLabel.setText("");
+
+        // Create an array of components to be added to the dialog
+        Object[] components = {"Material:", materialComboBox, "Quantity:", quantityField, "", tempLabel};
+
+        int result = JOptionPane.showConfirmDialog(null, components, "Choose Raw Materials", JOptionPane.OK_CANCEL_OPTION);
+
+        while (true) {
+            if (result == JOptionPane.OK_OPTION) {
+                String selectedMaterial = (String) materialComboBox.getSelectedItem();
+                String quantity = quantityField.getText();
+
+                if (quantity.matches("^[0-9]+$")) {
+                    int qty = Integer.parseInt(quantity);
+
+                    if (qty > 0) {
+                        for (raw r : FoodData.getRAWS().values()) {
+                            if (r.getName().equals(selectedMaterial)) {
+                                String[] parts = r.getQuantity().split(" ");
+                                int rawQty = Integer.parseInt(parts[0]); 
+
+                                int tempQty = rawQty - qty;
+
+                                System.out.println(rawQty);
+                                System.out.println(tempQty);                              
+                                System.out.println(qty);
+
+                                if (tempQty >= 0) {
+                                    FoodData.tempRaw.put(r.getID(), new raw(r.getID(), r.getName(), quantity + " " + parts[1], r.getSupplierID()));
+
+                                    r.setQuantity(Integer.toString(tempQty) + " " + parts[1]);
+                                    System.out.println(Integer.toString(tempQty) + " " + parts[1]);
+                                    System.out.println(FoodData.tempRaw.get(r.getID()).getQuantity());
+                                    storedQty = quantity + " " + parts[1];
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Quantity must be less than or equal to the available quantity");
+                    return false;
+                }
+
+                JOptionPane.showMessageDialog(null, "Quantity must be a number");
+                return false;
+            }
+
+            // JOptionPane.showMessageDialog(null, "Selected Material: " + selectedMaterial + "\nQuantity: " + quantity);
+        }
+    }
 
     public javax.swing.GroupLayout getGroupLayout() {
         return WIPLayout;

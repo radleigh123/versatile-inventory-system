@@ -21,7 +21,9 @@ public class Order extends javax.swing.JPanel {
 
         tempProducts = new HashMap<>();
         for(product p : RetailData.getPRODUCTS().values()) {
-            tempProducts.put(p.getName(), p.getQuantity());
+            String[] parts = p.getQuantity().split(" ");
+            int qty = Integer.parseInt(parts[0]);
+            tempProducts.put(p.getName(), qty);
         }
 
         custModel = (javax.swing.DefaultComboBoxModel) custCombo.getModel();
@@ -260,11 +262,9 @@ public class Order extends javax.swing.JPanel {
 
         totalQtyLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         totalQtyLabel.setText("00.00");
-        totalQtyLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         totalAmountLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         totalAmountLabel.setText("00.00");
-        totalAmountLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -276,10 +276,10 @@ public class Order extends javax.swing.JPanel {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(totalQtyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalQtyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                     .addComponent(totalAmountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,9 +390,7 @@ public class Order extends javax.swing.JPanel {
         paidField.setText("0");
 
         tempProducts = new HashMap<>();
-        for(product p : RetailData.getPRODUCTS().values()) {
-            tempProducts.put(p.getName(), p.getQuantity());
-        }
+        for(product p : RetailData.getPRODUCTS().values()) tempProducts.put(p.getName(), Integer.parseInt(p.getQuantity().split(" ")[0]));
     }
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
@@ -504,7 +502,10 @@ public class Order extends javax.swing.JPanel {
 
             for (product p : RetailData.getPRODUCTS().values()) {
                 if (p.getID() == id) {
-                    p.setQuantity(p.getQuantity() - qty);
+                    String[] parts = p.getQuantity().split(" ");
+                    int currentQty = Integer.parseInt(parts[0]);
+
+                    p.setQuantity(Integer.toString(currentQty - qty) + " " + parts[1]);
                 }
             }
         }

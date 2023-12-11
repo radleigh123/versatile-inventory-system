@@ -11,6 +11,9 @@ public class FoodData extends BusinessInformation {
     private static final Map<Integer, raw> RAWS = new HashMap<>();
     private static final Map<Integer, supplier> SUPPLIERS = new HashMap<>();
     private static final Map<Integer, wip> WIPS = new HashMap<>();
+    private static final Map<String, Integer> FINISH = new HashMap<>();
+
+    public static Map<Integer, raw> tempRaw = new HashMap<>();
 
     public FoodData(String ID, String title, String category, String type) {
         super(ID, title, category, type);
@@ -64,8 +67,23 @@ public class FoodData extends BusinessInformation {
         WIPS.remove(ID);
     }
 
+    public static Map<String, Integer> getFINISH() {
+        return FINISH;
+    }
+
+    public static int getFinish(String name) {
+        return FINISH.get(name);
+    }
+
+    public static void addFinish(String name, Integer qty) {
+        FINISH.put(name, qty);
+    }
+
+    public static void removeFinish(String name) {
+        FINISH.remove(name);
+    }
+
     public static void loadData() {
-        // String file = "src/com/cativointing/userdata/food/raw.txt";
         String file = "foodraw.txt";
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;
@@ -75,7 +93,7 @@ public class FoodData extends BusinessInformation {
                 if (parts.length == 4) {
                     int ID = Integer.parseInt(parts[0]);
                     String name = parts[1];
-                    int quantity = Integer.parseInt(parts[2]);
+                    String quantity = parts[2];
                     int supp = Integer.parseInt(parts[3]);
                     RAWS.put(ID, new raw(ID, name, quantity, supp));
                 }
@@ -106,11 +124,44 @@ public class FoodData extends BusinessInformation {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 3) {
+                if (parts.length == 4) {
                     int ID = Integer.parseInt(parts[0]);
                     String product = parts[1];
                     String status = parts[2];
-                    WIPS.put(ID, new wip(ID, product, status));
+                    String quantity = parts[3];
+                    WIPS.put(ID, new wip(ID, product, status, quantity));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file = "foodtmpraw.txt";
+        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    int ID = Integer.parseInt(parts[0]);
+                    String name = parts[1];
+                    String quantity = parts[2];
+                    int supp = Integer.parseInt(parts[3]);
+                    tempRaw.put(ID, new raw(ID, name, quantity, supp));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file = "foodfinish.txt";
+        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    int qty = Integer.parseInt(parts[1]);
+                    FINISH.put(name, qty);
                 }
             }
         } catch (IOException e) {
@@ -150,7 +201,29 @@ public class FoodData extends BusinessInformation {
             for (Map.Entry<Integer, wip> entry : WIPS.entrySet()) {
                 writer.println(entry.getValue().getID() + "," 
                         + entry.getValue().getProduct() + ","
-                        + entry.getValue().getStatus());
+                        + entry.getValue().getStatus() + ", "
+                        + entry.getValue().getQuantity());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file = "foodtmpraw.txt";
+        try (PrintWriter writer = new PrintWriter(file)) {
+            for (Map.Entry<Integer, raw> entry : RAWS.entrySet()) {
+                writer.println(entry.getValue().getID() + "," 
+                        + entry.getValue().getName() + ","
+                        + entry.getValue().getQuantity() + ","
+                        + entry.getValue().getSupplierID());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file = "foodfinish.txt";
+        try (PrintWriter writer = new PrintWriter(file)) {
+            for (Map.Entry<String, Integer> entry : FINISH.entrySet()) {
+                writer.println(entry.getKey() + "," + entry.getValue());
             }
         } catch (IOException e) {
             e.printStackTrace();

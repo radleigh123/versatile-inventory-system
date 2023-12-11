@@ -3,10 +3,10 @@ package com.cativointing.userdata.food;
 public class raw {
     private int ID;
     private String name;
-    private int quantity;
+    private String quantity;
     private int supplierID;
 
-    public raw(int ID, String name, int quantity, int supplierID) {
+    public raw(int ID, String name, String quantity, int supplierID) {
         this.ID = ID;
         this.name = name;
         this.quantity = quantity;
@@ -29,11 +29,11 @@ public class raw {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

@@ -15,6 +15,25 @@ public class Raw extends javax.swing.JPanel {
         for (raw r : FoodData.getRAWS().values()) {
             model.addRow(new Object[]{r.getID(), r.getName(), r.getQuantity(), r.getSupplierID()});
         }
+
+        qtyCombo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (qtyCombo.getSelectedItem().toString().equals("Add Qty")) {
+                    int confirm = javax.swing.JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to add a new quantity?",
+                            "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
+                    
+                    if (confirm == javax.swing.JOptionPane.NO_OPTION) return;
+                    
+                    String newQty = javax.swing.JOptionPane.showInputDialog(null, "Enter new quantity");
+                    if (newQty != null && !newQty.equals("")) {
+                        qtyCombo.insertItemAt(newQty, qtyCombo.getItemCount() - 1);
+                        qtyCombo.setSelectedItem(newQty);
+                    }
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +58,7 @@ public class Raw extends javax.swing.JPanel {
         qtyField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         suppField = new javax.swing.JTextField();
+        qtyCombo = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable() {
@@ -164,6 +184,9 @@ public class Raw extends javax.swing.JPanel {
 
         suppField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        qtyCombo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        qtyCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "mg", "g", "kg", "pt", "qt", "gal", "Add Qty" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -181,9 +204,12 @@ public class Raw extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(qtyField)
                             .addComponent(idField)
-                            .addComponent(suppField))
+                            .addComponent(suppField)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(qtyField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(qtyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -201,7 +227,8 @@ public class Raw extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(qtyField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qtyField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qtyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -243,7 +270,7 @@ public class Raw extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -263,7 +290,7 @@ public class Raw extends javax.swing.JPanel {
                     if (selectedRow != -1) {
                         int id = (int) jTable1.getValueAt(selectedRow, 0);
                         String product = (String) jTable1.getValueAt(selectedRow, 1);
-                        int quantity = (int) jTable1.getValueAt(selectedRow, 2);
+                        String quantity = (String) jTable1.getValueAt(selectedRow, 2);
                         int supplier = (int) jTable1.getValueAt(selectedRow, 3);
 
                         System.out.println("Selected: " + id + ", " + product + ", " + quantity + ", " + supplier);
@@ -318,7 +345,9 @@ public class Raw extends javax.swing.JPanel {
         private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
             int id = idField.getText().matches("^[0-9]+$") ? Integer.parseInt(idField.getText()) : 0;
             String name = nameField.getText();
-            int qty = qtyField.getText().matches("^[0-9]+$") ? Integer.parseInt(qtyField.getText()) : 0;
+            String qty = qtyField.getText().matches("^[0-9]+$") ? qtyField.getText() : "";
+            String unit = qtyCombo.getSelectedItem().equals("Add Qty") ? "" : (String) qtyCombo.getSelectedItem();
+            qty = qty + " " + unit;
             int supp = suppField.getText().matches("^[0-9]+$") ? Integer.parseInt(suppField.getText()) : 0;
 
             // checking if ID already exists
@@ -339,8 +368,13 @@ public class Raw extends javax.swing.JPanel {
                 return;
             }
 
-            if (qty <= 0) {
+            if (qty.equals("")) {
                 javax.swing.JOptionPane.showMessageDialog(null, "ADD: Please enter a valid quantity");
+                return;
+            }
+
+            if (unit.equals("")) {
+                javax.swing.JOptionPane.showMessageDialog(null, "ADD: Please select a valid unit");
                 return;
             }
 
@@ -360,13 +394,14 @@ public class Raw extends javax.swing.JPanel {
             idField.setText("");
             nameField.setText("");
             qtyField.setText("");
+            qtyCombo.setSelectedIndex(0);
             suppField.setText("");
         }//GEN-LAST:event_addButtonActionPerformed
 
         private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
             int searchedID = searchField.getText().matches("^[0-9]+$") ? Integer.parseInt(searchField.getText()): 0;
             String name;
-            int qty;
+            String qty;
             int supp;
 
             if (searchedID == 0) {
@@ -377,12 +412,19 @@ public class Raw extends javax.swing.JPanel {
             for (int i = 0; i < model.getRowCount(); i++) {
                 if (searchedID == (int) model.getValueAt(i, 0)) {
                     name = (String) model.getValueAt(i, 1);
-                    qty = (int) model.getValueAt(i, 2);
+                    String completeQty = (String) model.getValueAt(i, 2);
+                    qty = completeQty.split(" ")[0];
                     supp = (int) model.getValueAt(i, 3);
 
                     idField.setText(Integer.toString(searchedID));
                     nameField.setText(name);
-                    qtyField.setText(Integer.toString(qty));
+                    qtyField.setText(qty);
+                    for (int j = 0; j < qtyCombo.getItemCount(); j++) {
+                        if (completeQty.split(" ")[1].equals(qtyCombo.getItemAt(j))) {
+                            qtyCombo.setSelectedIndex(j);
+                            break;
+                        }
+                    }
                     suppField.setText(Integer.toString(supp));
 
                     jTable1.clearSelection();
@@ -399,7 +441,9 @@ public class Raw extends javax.swing.JPanel {
         private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
             int id = idField.getText().matches("^[0-9]+$") ? Integer.parseInt(idField.getText()) : 0;
             String name = nameField.getText();
-            int qty = qtyField.getText().matches("^[0-9]+$") ? Integer.parseInt(qtyField.getText()) : 0;
+            String qty = qtyField.getText().matches("^[0-9]+$") ? qtyField.getText() : "";
+            String unit = qtyCombo.getSelectedItem().equals("Add Qty") ? "" : (String) qtyCombo.getSelectedItem();
+            qty = qty + " " + unit;
             int supp = suppField.getText().matches("^[0-9]+$") ? Integer.parseInt(suppField.getText()) : 0;
 
             int row = -1;
@@ -421,8 +465,13 @@ public class Raw extends javax.swing.JPanel {
                 return;
             }
 
-            if (qty <= 0) {
+            if (qty.equals("")) {
                 javax.swing.JOptionPane.showMessageDialog(null, "UPDATE: Please enter a valid quantity");
+                return;
+            }
+
+            if (unit.equals("")) {
+                javax.swing.JOptionPane.showMessageDialog(null, "UPDATE: Please select a valid unit");
                 return;
             }
 
@@ -436,7 +485,7 @@ public class Raw extends javax.swing.JPanel {
                 return;
             }
 
-            if (name.equals(model.getValueAt(row, 1)) && qty == (int) model.getValueAt(row, 2)
+            if (name.equals(model.getValueAt(row, 1)) && qty.equals((String) model.getValueAt(row, 2))
                     && supp == (int) model.getValueAt(row, 3)) {
                 return;
             }
@@ -467,6 +516,7 @@ public class Raw extends javax.swing.JPanel {
             idField.setText("");
             nameField.setText("");
             qtyField.setText("");
+            qtyCombo.setSelectedIndex(0);
             suppField.setText("");
         }//GEN-LAST:event_updateButtonActionPerformed
 
@@ -559,6 +609,7 @@ public class Raw extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameField;
+    private javax.swing.JComboBox<String> qtyCombo;
     private javax.swing.JTextField qtyField;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton searchButton;

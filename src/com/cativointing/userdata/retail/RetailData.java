@@ -68,7 +68,6 @@ public class RetailData extends BusinessInformation {
     }
 
     public static void saveData() {
-        // String file = "src/com/cativointing/userdata/retail/product.txt";
         String file = "retailproduct.txt";
         try (PrintWriter writer = new PrintWriter(file)) {
             for (Map.Entry<Integer, product> entry : PRODUCTS.entrySet()) {
@@ -120,7 +119,7 @@ public class RetailData extends BusinessInformation {
                     int ID = Integer.parseInt(parts[0]);
                     String name = parts[1];
                     String category = parts[2];
-                    int quantity = Integer.parseInt(parts[3]);
+                    String quantity = parts[3];
                     int supp = Integer.parseInt(parts[4]);
                     double price = Double.parseDouble(parts[5]);
                     PRODUCTS.put(ID, new product(ID, name, category, quantity, supp, price));

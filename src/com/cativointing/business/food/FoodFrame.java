@@ -2,11 +2,34 @@ package com.cativointing.business.food;
 
 import com.cativointing.userdata.AvailableBusinesses;
 import com.cativointing.userdata.food.FoodData;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class FoodFrame extends javax.swing.JFrame {
+
+    public static void main(String[] args) {
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatMacLightLaf());
+            System.out.println("Successfully loaded FlatMacLightLaf theme.");
+        } catch (UnsupportedLookAndFeelException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FoodFrame().setVisible(true);
+            }
+        });
+
+        // Close when program exits
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Successfully closed the program");
+        }));
+    }
     
     private Raw raw;
     private Supplier supplier;
@@ -16,7 +39,7 @@ public class FoodFrame extends javax.swing.JFrame {
     public FoodFrame() {
         raw = new Raw();
         supplier = new Supplier();
-        wip = new WIP();
+        wip = new WIP(this);
         finish = new Finish();
         
         initComponents();

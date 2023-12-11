@@ -69,7 +69,6 @@ public class ServiceData extends BusinessInformation {
     }
 
     public static void loadData() {
-        // String file = "src/com/cativointing/userdata/service/customer.txt";
         String file = "servicecustomer.txt";
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;

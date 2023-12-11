@@ -260,21 +260,10 @@ public class Login extends JFrame {
 
     private void signButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signButtonActionPerformed
         int confirm = javax.swing.JOptionPane.YES_OPTION;
-        try {
-            File file = new File("userinfo.txt");
-
-            if (file.length() == 0) {
-                System.out.println("The file is empty");
-            } else {
-                System.out.println("The file is not empty");
-                confirm = javax.swing.JOptionPane.showConfirmDialog(null, "This will start over everything, are you sure?", "Confirmation", javax.swing.JOptionPane.YES_NO_OPTION);
-                removeTextFiles();
-            }
-        } catch (Exception e) {
-            // e.printStackTrace();
-        }
-
+        confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Create a new inventory, are you sure?", "Confirmation", javax.swing.JOptionPane.YES_NO_OPTION);
+                
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            removeTextFiles();
             setVisible(false);
             new Setup().setVisible(true);
         }
@@ -298,6 +287,10 @@ public class Login extends JFrame {
         file = new File("servicereport.txt");
         file.delete();
         file = new File("serviceschedule.txt");
+        file.delete();
+        file = new File("creds.txt");
+        file.delete();
+        file = new File("userinfo.txt");
         file.delete();
     }
 
